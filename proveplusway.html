@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Goal Phenomenological Brackets</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .task-description, .task-method {
+            margin-top: 20px;
+        }
+        .bracket {
+            font-weight: bold;
+            color: darkblue;
+        }
+        #convergent-questions, #black-hole-section {
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 80px;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .task-container {
+            margin-top: 20px;
+        }
+        #task-energy {
+            font-size: 18px;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #ff4500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Convergent or Divergent Question Section -->
+        <div id="convergent-questions">
+            <p>Does the task fit into:</p>
+            <button onclick="handleConvergent()">Convergent Goals</button>
+            <button onclick="handleDivergent()">Unconvergent (Divergent) Goals</button>
+        </div>
+
+        <!-- Divergent Task Handling -->
+        <div id="black-hole-section" style="display: none;">
+            <p>Please describe what you ignored regarding the task below:</p>
+            <textarea id="ignored-aspect" placeholder="Write about what you ignored in the task"></textarea>
+            <br>
+            <button onclick="openBlackHole()">Open Black Hole</button>
+        </div>
+
+        <!-- Brackets Section -->
+        <button id="check-brackets" onclick="checkTask()">Check Task Goal</button>
+
+        <div class="task-container" id="task-container">
+            <!-- Bracket 1: Stripped Perception of the Task Goal -->
+            <p class="task-description" id="task-description">
+                <span class="bracket" id="task-bracket1">Goal (Stripped Perception): Achieve infinity plus infinity plus infinity plus infinity (∞ + ∞ + ∞ + ∞).</span>
+            </p>
+
+            <!-- Bracket 2: Detailed Perception of the Task Goal (Hidden initially) -->
+            <div id="task-method" style="display: none;">
+                <p>Goal (Detailed Perception): 
+                    <span class="bracket" id="task-bracket2"></span>
+                </p>
+                <p>Steps to approach the goal:</p>
+                <ul>
+                    <li>Step 1: Recognize that the concept of infinity is not finite, and adding infinities still results in infinity, but with greater complexity.</li>
+                    <li>Step 2: Each addition of infinity represents an expansion of understanding that transcends any boundaries.</li>
+                    <li>Step 3: Conceptually manage the compounding process of infinities by dividing the task into an unquantifiable yet progressive journey.</li>
+                    <li>Step 4: Focus on perpetual expansion without expecting a concrete endpoint, as the infinite nature of the goal defies finality.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Task Energy Section -->
+        <div id="task-energy">
+            Task Energy: <span id="calculated-energy">Calculating...</span>
+        </div>
+        
+    </div>
+
+    <script>
+        function checkTask() {
+            // Here, you define whether the task is possible or not.
+            // For simplicity, we assume the task is possible (taskPossible = true).
+            let taskPossible = true;
+
+            // Show the task method (Bracket 2) if the task is possible
+            if (taskPossible) {
+                document.getElementById("task-method").style.display = "block";
+                revealBracket2(); // Reveal the second bracket letter by letter
+                calculateTaskEnergy(); // Calculate energy once the task is possible
+            } else {
+                document.getElementById("task-method").style.display = "none";
+            }
+        }
+
+        function handleConvergent() {
+            // Handle the case where the task fits into convergent goals
+            alert("The task fits into convergent goals. Proceeding with the process.");
+            document.getElementById("convergent-questions").style.display = "none";
+        }
+
+        function handleDivergent() {
+            // Handle the case where the task fits into divergent (unconvergent) goals
+            alert("The task fits into divergent goals. You need to identify what was ignored.");
+            document.getElementById("black-hole-section").style.display = "block"; // Reveal the section to handle ignored elements
+            document.getElementById("convergent-questions").style.display = "none"; // Hide the initial question section
+        }
+
+        function openBlackHole() {
+            // Handle opening the black hole after the ignored element is written
+            const ignoredAspect = document.getElementById("ignored-aspect").value;
+            if (ignoredAspect) {
+                alert(`You have opened the black hole with the ignored aspect: "${ignoredAspect}"`);
+                // Hide the black hole section after the task is handled
+                document.getElementById("black-hole-section").style.display = "none";
+            } else {
+                alert("Please describe what you ignored in the task before opening the black hole.");
+            }
+        }
+
+        function revealBracket2() {
+            const fullText = "Break down the goal into layers of infinite expansion, continuously compounding limitless forces, and seeking an ever-expanding horizon that cannot be confined.";
+            let index = 0;
+            const bracketElement = document.getElementById("task-bracket2");
+
+            // Clear any previous content
+            bracketElement.innerHTML = "";
+
+            // Create a function to reveal text letter by letter
+            const intervalId = setInterval(() => {
+                bracketElement.innerHTML += fullText[index];
+                index++;
+
+                // Stop the interval when all text is revealed
+                if (index === fullText.length) {
+                    clearInterval(intervalId);
+                }
+            }, 100); // Adjust this value for the speed of letter reveal
+        }
+
+        function calculateTaskEnergy() {
+            // Let's make the task energy more realistic, by simulating an exponential relationship
+            const baseEnergy = 1000; // Base energy constant for each layer of infinity
+            const numberOfInfinities = 4; // We are dealing with 4 infinities
+            
+            // Use an exponential model to simulate energy growth as the number of infinities increases
+            const taskEnergy = baseEnergy * Math.pow(2, numberOfInfinities); // Exponential growth based on infinities
+
+            // Display the calculated energy on the page
+            document.getElementById("calculated-energy").innerText = taskEnergy.toLocaleString();
+        }
+    </script>
+
+
+notes for later: energy needed to do a special power might be 80000000000000
+
+
+</body>
+</html>
